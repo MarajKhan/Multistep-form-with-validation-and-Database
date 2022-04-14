@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>multistep form</title>
+    <link rel="stylesheet" type="text/css" href="multistep.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script>
+    <script src="multistep.js"></script>
+</head>
+<body">
+   <h1 style="margin-top:50px; color: white;">Multistep Form</h1>
+    <form id="myForm" action="multistep.php" method="POST">
+        
+        
+        <div class="tab">
+            <h3>Multistep Form Step 1</h3>
+            <p><input type="text" placeholder="Name..." name="name" id="name"></p>
+            <p><input type="text" placeholder="Mobile No..." name="mobile" id="mobile"></p>
+            <p><input type="text" placeholder="Email..." name="email" id="email"></p>
+        </div>
+        <div class="tab">
+            <h3>Multistep Form Step 2</h3>
+            <p><input placeholder="City..." name="city" id="city"></p>
+            <p><input placeholder="Income..." name="income" id="income"></p>
+            <p>D.O.B<input type="date" placeholder="D.O.B" name="age" id="age"></p>
+        </div>
+       <div class="tab">
+        <h3>Multistep Form Step 3</h3>
+            <input type="radio" name="gender" id="gender" value="male" id="gender">Male
+            <p><input type="radio" name="gender" id="gender" value="female" id="gender">Female</p><br><hr>
+            <p><input type="radio" name="Marital" id="Marital" value="married" id="Marital">Married</p>
+            <p><input type="radio" name="Marital" id="Marital" value="unmarried" id="Marital">Unmarried</p>
+           
+        </div>
+        <div style="overflow:auto;">
+            <div style="float:right; margin-top: 5px;">
+                <button type="button" class="previous">Previous</button>
+                <button type="button" class="next">Next</button>
+                <button type="button" class="submit" onclick="mess();">Submit</button>
+            </div>
+        </div>
+        
+        <div style="text-align:center;margin-top:10px;">
+            <span class="step">1</span>
+            <span class="step">2</span>
+            <span class="step">3</span>
+        </div>
+        
+    </form>
+</body>
+<script type="text/javascript">
+    function mess() {
+        alert("Your Record SuccessFully Saved");
+        return true;
+    }
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+       
+
+        var val = {
+            // Specify validation rules
+            rules: {
+                name: "required",
+                
+                mobile: {
+                    required:true,
+                    minlength:10,
+                    maxlength:10,
+                    digits:true
+                },
+                email: {
+                    required: true,
+                    email: true
+                },
+                city:{
+                    required:true,
+                    
+                },
+                income:{
+                    required:true,
+                    
+                },
+                age:{
+                    date:true,
+                    required:true,
+                },
+                gender:{
+                    required:true,
+                    
+                },
+                Marital:{
+                    required:true,
+                    
+                }
+            },
+            // Specify validation error messages
+            messages: {
+                name:      "Name is required",
+                mobile:{
+                    required:   "Phone number is requied",
+                    minlength:  "Please enter 10 digit mobile number",
+                    maxlength:  "Please enter 10 digit mobile number",
+                    digits:     "Only numbers are allowed in this field"
+                },
+                email: {
+                    required:   "Email is required",
+                    email:      "Please enter a valid e-mail",
+                },
+
+                city:{
+                    required:   "Enter Your City Name",
+                    
+                },
+                income:{
+                    required:   "Enter Your Monthly Income",
+                },
+                age:{
+                    required:   "Enter Your D.O.B",
+
+                },
+                gender:{
+                    required:   "Select Your Gender",
+                },
+                Marital:{
+                    required:   "Select Your Marital Status",
+                
+                }
+            }
+        }
+        $("#myForm").multiStepForm(
+        {
+            // defaultStep:0,
+            beforeSubmit : function(form, submit){
+                console.log("called before submiting the form");
+                console.log(form);
+                console.log(submit);
+            },
+            validations:val,
+        }
+        ).navigateTo(0);
+    });
+</script>
+</html>
