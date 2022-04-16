@@ -3,6 +3,7 @@
 <head>
     <title>multistep form</title>
     <link rel="stylesheet" type="text/css" href="multistep.css">
+    <link rel="stylesheet" type="text/css" href="jquery-ui.min.css">
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script>
     <script src="multistep.js"></script>
@@ -16,7 +17,7 @@
             <h3>Multistep Form Step 1</h3>
             <p><input type="text" placeholder="Name..." name="name" id="name"></p>
             <p><input type="text" placeholder="Mobile No..." name="mobile" id="mobile"></p>
-            <p><input type="text" placeholder="Email..." name="email" id="email"></p>
+            <p><input type="email" placeholder="Email..." name="email" id="email"></p>
         </div>
         <div class="tab">
             <h3>Multistep Form Step 2</h3>
@@ -55,6 +56,16 @@
     }
 </script>
 
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+    <script src="jquery-3.6.0.min.js.js"></script>
+    <script src="jquery-ui.min.js"></script>
+    <script src="jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="jquery-validation/dist/additional-methods.min.js"></script>
+    <script src="jquery-validation/src/additional/nowhitespace.js"></script>
+   
+
 <script type="text/javascript">
     $(document).ready(function(){
        
@@ -62,17 +73,25 @@
         var val = {
             // Specify validation rules
             rules: {
-                name: "required",
+                name: {
+                    required: true,
+                    maxlength: 20,
+                    minlength: 3,
+                    lettersonly: true,
+                },
                 
                 mobile: {
                     required:true,
+                    digits:true,
                     minlength:10,
                     maxlength:10,
-                    digits:true
+                    
+                    
                 },
                 email: {
                     required: true,
-                    email: true
+                    email: true,
+                    
                 },
                 city:{
                     required:true,
@@ -80,6 +99,7 @@
                 },
                 income:{
                     required:true,
+                    number: true,
                     
                 },
                 age:{
@@ -97,12 +117,19 @@
             },
             // Specify validation error messages
             messages: {
-                name:      "Name is required",
+                name: {
+                    required: "Name is required",
+                    maxlength: "maximum 20 characters",
+                    minlength: "minimum 3 characters",
+                    lettersonly: "lettersonly",
+                    
+                },
                 mobile:{
                     required:   "Phone number is requied",
                     minlength:  "Please enter 10 digit mobile number",
                     maxlength:  "Please enter 10 digit mobile number",
-                    digits:     "Only numbers are allowed in this field"
+                    digits:     "Only numbers are allowed in this field",
+                    
                 },
                 email: {
                     required:   "Email is required",
@@ -115,6 +142,7 @@
                 },
                 income:{
                     required:   "Enter Your Monthly Income",
+                    number: "Number only"
                 },
                 age:{
                     required:   "Enter Your D.O.B",
