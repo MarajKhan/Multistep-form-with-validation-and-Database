@@ -8,6 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script>
     <script src="multistep.js"></script>
 </head>
+
 <body">
     
    <h1 style="margin-top:50px; color: white;">Multistep Form</h1>
@@ -19,7 +20,9 @@
             <p><input type="text" placeholder="Name..." name="name" id="name"></p>
             <p><input type="text" placeholder="Mobile No..." name="mobile" id="mobile" value=""></p>
             <span id="messages"></span>
-            <p><input type="email" placeholder="Email..." name="email" id="email"></p>
+            <p><input type="text" placeholder="Email..." name="email" id="email" value=""></p>
+            <span id="sms"></span>
+            
         </div>
         <div class="tab">
             <h3>Multistep Form Step 2</h3>
@@ -57,7 +60,6 @@
        function myfun(){
         var a = document.getElementById("mobile").value;
         
-
         if(a==""){
             document.getElementById("messages").innerHTML="Mobile no is required";
             return false;
@@ -78,8 +80,11 @@
             document.getElementById("messages").innerHTML="Enter valid mobile no start dogit 9,8,7,6";
             return false;
         }
+
         
        }
+
+
    </script>
 
 
@@ -99,8 +104,20 @@
     <script src="jquery-validation/dist/additional-methods.min.js"></script>
     <script src="jquery-validation/src/additional/nowhitespace.js"></script>
 
-
-
+   <script type="text/javascript">
+    $(function(){
+        var email = $("#email").val();
+        if(email==""){
+            document.getElementById("sms").innerHTML="Email is required";
+            return false;
+        }
+        if (email.indexOf("@") < 0 || email.indexOf(".") < 0) {
+             document.getElementById("sms").innerHTML="invalid email";
+             return false;
+        }
+    });
+</script>
+ 
 <script type="text/javascript">
     $(document).ready(function(){
        
@@ -122,11 +139,11 @@
                    maxlength:10,
                     
                  },*/
-                email: {
+                /*email: {
                     required: true,
                     email: true,
                     
-                },
+                },*/
                 city:{
                     required:true,
                     
@@ -165,11 +182,11 @@
                    digits:     "Only numbers are allowed in this field",
                    
                     
-                },*/
+                },
                 email: {
                     required:   "Email is required",
                     email:      "Please enter a valid e-mail",
-                },
+                },*/
 
                 city:{
                     required:   "Enter Your City Name",
