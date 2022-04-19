@@ -12,8 +12,8 @@
 }
 
 body {
-    background-color: #fff;
-    background-color: gray;
+    
+    background-color: grey;
 }
 
 form {
@@ -83,5 +83,11 @@ button:hover {
 }
 
 .error {
+    color: red;
+}
+#messages{
+    color: red;
+}
+#sms{
     color: red;
 }
