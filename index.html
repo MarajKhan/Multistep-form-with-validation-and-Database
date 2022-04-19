@@ -12,16 +12,14 @@
 <body">
     
    <h1 style="margin-top:50px; color: white;">Multistep Form</h1>
-    <form id="myForm" action="multistep.php" method="POST" onsubmit="return myfun()">
+    <form id="myForm" action="multistep.php" method="POST">
         
         
         <div class="tab">
             <h3>Multistep Form Step 1</h3>
             <p><input type="text" placeholder="Name..." name="name" id="name"></p>
-            <p><input type="text" placeholder="Mobile No..." name="mobile" id="mobile" value=""></p>
-            <span id="messages"></span>
-            <p><input type="text" placeholder="Email..." name="email" id="email" value=""></p>
-            <span id="sms"></span>
+            <p><input type="text" placeholder="Mobile No..." name="mobile" id="mobile"></p>
+            <p><input type="text" placeholder="Email..." name="email" id="email"></p>
             
         </div>
         <div class="tab">
@@ -41,7 +39,7 @@
         <div style="overflow:auto;">
             <div style="float:right; margin-top: 5px;">
                 <button type="button" class="previous">Previous</button>
-                <button type="button" class="next" onclick="myfun();">Next</button>
+                <button type="button" class="next">Next</button>
                 <button type="button" class="submit" onclick="mess();">Submit</button>
             </div>
         </div>
@@ -55,37 +53,6 @@
     </form>
     
 </body>
-
-<script type="text/javascript">
-       function myfun(){
-        var a = document.getElementById("mobile").value;
-        
-        if(a==""){
-            document.getElementById("messages").innerHTML="Mobile no is required";
-            return false;
-        }
-        if (isNaN(a)) {
-            document.getElementById("messages").innerHTML="Enter digit no";
-            return false;
-        }
-        if (a.length<10) {
-            document.getElementById("messages").innerHTML="Please enter 10 digit mobile number";
-            return false;
-        }
-        if (a.length>10) {
-            document.getElementById("messages").innerHTML="Please enter 10 digit mobile number";
-            return false;
-        }
-        if ((a.charAt(0)!=9) && (a.charAt(0)!=8) && (a.charAt(0)!=7) && (a.charAt(0)!=6)){
-            document.getElementById("messages").innerHTML="Enter valid mobile no start dogit 9,8,7,6";
-            return false;
-        }
-
-        
-       }
-
-
-   </script>
 
 
 <script type="text/javascript">
@@ -104,19 +71,7 @@
     <script src="jquery-validation/dist/additional-methods.min.js"></script>
     <script src="jquery-validation/src/additional/nowhitespace.js"></script>
 
-   <script type="text/javascript">
-    $(function(){
-        var email = $("#email").val();
-        if(email==""){
-            document.getElementById("sms").innerHTML="Email is required";
-            return false;
-        }
-        if (email.indexOf("@") < 0 || email.indexOf(".") < 0) {
-             document.getElementById("sms").innerHTML="invalid email";
-             return false;
-        }
-    });
-</script>
+
  
 <script type="text/javascript">
     $(document).ready(function(){
@@ -132,18 +87,18 @@
                     lettersonly: true,
                 },
                 
-              /*mobile: {
-                    required:true,
+              mobile: {
+                    required: true,
                    digits:true,
                    minlength:10,
                    maxlength:10,
+                   pattern: "[6789][0-9]{9}",
                     
-                 },*/
-                /*email: {
+                 },
+               email: {
                     required: true,
-                    email: true,
-                    
-                },*/
+                    pattern:"[a-z0-9._%+-]+@gmail[a-z0-9.-]+\.[a-z]{2,3}$",
+                },
                 city:{
                     required:true,
                     
@@ -175,8 +130,9 @@
                     lettersonly: "lettersonly",
                     
                 },
-               /* mobile:{
-                    required:   "Phone number is requied",
+                mobile:{
+                   required: "Please Enter your mobile no",
+                   pattern: "Please enter valid Mobile No",
                     minlength:  "Please enter 10 digit mobile number",
                     maxlength:  "Please enter 10 digit mobile number",
                    digits:     "Only numbers are allowed in this field",
@@ -186,7 +142,8 @@
                 email: {
                     required:   "Email is required",
                     email:      "Please enter a valid e-mail",
-                },*/
+                    pattern: "Please write doman name",
+                },
 
                 city:{
                     required:   "Enter Your City Name",
