@@ -4,11 +4,27 @@
   $password="";
   $dbname="multistep2";
 
-    $conn=new mysqli($servername,$username,$password,$dbname);
+   $conn=new mysqli($servername,$username,$password,$dbname);
   if ($conn->connect_error)
    {
-  	die("connection fail");
+    die("connection fail");
   }
+ 
+  if (isset($_POST['mobile'])) {
+      
+      $query = "SELECT * FROM multistep_form2 WHERE mobile='" . $_POST["mobile"]. "'";
+      $result = mysqli_query($conn,$query);
+      $count = mysqli_num_rows($result);
+      if($count>0){
+        echo "<span style='color:red'><b> User Already Exists</b> .</span>";
+        echo "<script>$('#next').prop('disabled',true);</script>";
+      }
+      else{
+        echo "<span style='color:green'><b>User Avalavel</b> .</span>";
+        echo "<script>$('#next').prop('disabled',false);</script>";
+
+         }
+     if (isset($_POST['email'])) {   
   $name= $_POST['name'];
   $mobile= $_POST['mobile'];
   $email= $_POST['email'];
@@ -17,37 +33,21 @@
   $age= $_POST['age'];
   $gender= $_POST['gender'];
   $Marital= $_POST['Marital'];
+       
+  $sql="INSERT INTO multistep_form2 (name,mobile,email,city,income,age,gender,Marital) VALUE ('$name','$mobile','$email','$city','$income','$age','$gender','$Marital')";
+      if ($conn->query($sql)==true) {
 
-  $dup=mysqli_query($conn,"SELECT * FROM multistep_form2 where mobile='$mobile'");
-  if(mysqli_num_rows($dup)>0)
-  {
-      
-    $message = "duplicate value not allow";
-   echo "<script type='text/javascript'>alert('$message');
-   window.location = 'index.html';
-   </script>";
-    
-  return false;
+    header("Location:index.html");
 
   } 
-
-  
   else{
 
-  
-  $sql="INSERT INTO multistep_form2 (name,mobile,email,city,income,age,gender,Marital) VALUE ('$name','$mobile','$email','$city','$income','$age','$gender','$Marital')";
-  if ($conn->query($sql)==true) {
+    echo "Error in this code";
 
-  	header("Location:index.html");
-
-  }
-  else{
-  	echo "Error in this code";
-  }
-
+  } 
   $conn->close();
-
-
 }
+         
+    } 
 
 ?>
