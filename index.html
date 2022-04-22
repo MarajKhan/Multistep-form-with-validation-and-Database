@@ -5,6 +5,7 @@
     <link rel="stylesheet" type="text/css" href="multistep.css">
     <link rel="stylesheet" type="text/css" href="jquery-ui.min.css">
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script>
     <script src="multistep.js"></script>
 </head>
@@ -14,12 +15,16 @@
    <h1 style="margin-top:50px; color: white;">Multistep Form</h1>
     <form id="myForm" action="multistep.php" method="POST">
         
-        
+
+
         <div class="tab">
             <h3>Multistep Form Step 1</h3>
             <p><input type="text" placeholder="Name..." name="name" id="name"></p>
-            <p><input type="text" placeholder="Mobile No..." name="mobile" id="mobile"></p>
+           <span id="mobsms"></span>
+            <p><input type="text" placeholder="Mobile No..." name="mobile" id="mobile" oninput="checkeMobile()"/></p>
+            
             <p><input type="text" placeholder="Email..." name="email" id="email"></p>
+            
             
         </div>
         <div class="tab">
@@ -39,7 +44,7 @@
         <div style="overflow:auto;">
             <div style="float:right; margin-top: 5px;">
                 <button type="button" class="previous">Previous</button>
-                <button type="button" class="next">Next</button>
+                <button type="button" class="next" id="next">Next</button>
                 <button type="button" class="submit" onclick="mess();">Submit</button>
             </div>
         </div>
@@ -49,6 +54,21 @@
             <span class="step">2</span>
             <span class="step">3</span>
         </div>
+
+       <script type="text/javascript">
+     function checkeMobile() {
+        jQuery.ajax({
+            url: "multistep.php",
+            data: 'mobile='+$("#mobile").val(),
+            type: "POST",
+            success:function(data) {
+                $("#mobsms").html(data);
+                
+            },
+            error: function() {}
+        });
+     }
+ </script>
         
     </form>
     
@@ -63,16 +83,16 @@
 </script>
 
 
-
+     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
     <script src="jquery-3.6.0.min.js.js"></script>
     <script src="jquery-ui.min.js"></script>
     <script src="jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="jquery-validation/dist/additional-methods.min.js"></script>
     <script src="jquery-validation/src/additional/nowhitespace.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
 
 
- 
 <script type="text/javascript">
     $(document).ready(function(){
        
@@ -93,11 +113,11 @@
                    minlength:10,
                    maxlength:10,
                    pattern: "[6789][0-9]{9}",
+               },
                     
-                 },
                email: {
                     required: true,
-                    pattern:"[a-z0-9._%+-]+@gmail[a-z0-9.-]+\.[a-z]{2,3}$",
+                    pattern:"[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,3}$",
                 },
                 city:{
                     required:true,
@@ -134,8 +154,9 @@
                    required: "Please Enter your mobile no",
                    pattern: "Please enter valid Mobile No",
                     minlength:  "Please enter 10 digit mobile number",
-                    maxlength:  "Please enter 10 digit mobile number",
+                    maxlength:  "Please enter 10 digit mobile number this no is more than 10",
                    digits:     "Only numbers are allowed in this field",
+
                    
                     
                 },
