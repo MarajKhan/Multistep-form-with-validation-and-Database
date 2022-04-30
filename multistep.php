@@ -34,7 +34,15 @@
   $gender= $_POST['gender'];
   $Marital= $_POST['Marital'];
        
-  $sql="INSERT INTO multistep_form2 (name,mobile,email,city,income,age,gender,Marital) VALUE ('$name','$mobile','$email','$city','$income','$age','$gender','$Marital')";
+  $sql="INSERT INTO multistep_form2 (name,mobile,email,age,gender,Marital) VALUE ('$name','$mobile','$email','$age','$gender','$Marital')";
+  $sn="INSERT INTO city_name(city) VALUE ('$city')";
+  $income= "INSERT INTO monthly_income (income) VALUE ('$income')";
+  if ($conn->query($sn)==true) {
+    
+  }
+  if ($conn->query($income)==true) {
+  
+  }
       if ($conn->query($sql)==true) {
 
     header("Location:index.html");
